@@ -106,155 +106,113 @@
     <div class="container">
         <h1>信号与系统 · 核心知识点总结（高级版）</h1>
 
-        <!-- 一、基础概念 -->
         <div id="basic" class="card">
             <h2>一、信号与系统基础概念</h2>
             <h3>1. 信号的定义与分类</h3>
             <p>信号是信息的物理载体，数学上表示为一个或多个变量的函数。</p>
             <ul>
-                <li>连续时间信号：\(x(t)\)（如正弦波）</li>
-                <li>离散时间信号：\(x[n]\)（如采样序列）</li>
+                <li>连续时间信号：\(x(t)\)</li>
+                <li>离散时间信号：\(x[n]\)</li>
                 <li>周期/非周期、确定/随机、能量/功率信号</li>
             </ul>
-
             <h3>2. 典型信号</h3>
             <ul>
                 <li>单位阶跃：\(u(t)=\begin{cases}1,&t>0\\0,&t<0\end{cases}\)</li>
-                <li>单位冲激：\(\delta(t)\)，满足 \(\int_{-\infty}^{\infty}\delta(t)dt=1\)，筛选性质：\(f(t)\delta(t-t_0)=f(t_0)\delta(t-t_0)\)</li>
+                <li>单位冲激：\(\delta(t)\)，满足 \(\int_{-\infty}^{\infty}\delta(t)dt=1\)</li>
                 <li>Sa函数：\(\text{Sa}(t)=\frac{\sin t}{t}\)</li>
             </ul>
-
-            <h3>3. 系统分类与性质</h3>
+            <h3>3. 系统性质</h3>
             <ul>
-                <li>线性：叠加性+齐次性 \(T\{ax_1+bx_2\}=aT\{x_1\}+bT\{x_2\}\)</li>
+                <li>线性：叠加+齐次 \(T\{ax_1+bx_2\}=aT\{x_1\}+bT\{x_2\}\)</li>
                 <li>时不变：输入延迟 \(t_0\)，输出也延迟 \(t_0\)</li>
-                <li>因果：输出不依赖未来输入；稳定：有界输入→有界输出</li>
+                <li>因果、稳定</li>
             </ul>
         </div>
 
-        <!-- 二、时域分析 -->
         <div id="time" class="card">
-            <h2>二、LTI系统时域分析（核心：卷积）</h2>
+            <h2>二、LTI系统时域分析（卷积）</h2>
             <h3>1. 冲激响应 \(h(t)\)</h3>
-            <p>LTI系统对 \(\delta(t)\) 的零状态响应，完全表征系统特性。</p>
-
-            <h3>2. 卷积积分（连续）</h3>
+            <p>LTI系统对 \(\delta(t)\) 的零状态响应。</p>
+            <h3>2. 卷积积分</h3>
             <div class="formula">
                 \[y(t)=x(t)*h(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau\]
             </div>
-
             <h3>3. 卷积性质</h3>
             <ul>
-                <li>交换律：\(x*h=h*x\)</li>
-                <li>结合律：\((x*h_1)*h_2=x*(h_1*h_2)\)</li>
-                <li>分配律：\(x*(h_1+h_2)=x*h_1+x*h_2\)</li>
-                <li>与冲激卷积：\(x(t)*\delta(t)=x(t)\)</li>
+                <li>交换律、结合律、分配律</li>
+                <li>\(x(t)*\delta(t)=x(t)\)</li>
             </ul>
         </div>
 
-        <!-- 三、频域分析 -->
         <div id="freq" class="card">
             <h2>三、频域分析：傅里叶级数与变换</h2>
-            <h3>1. 周期信号：傅里叶级数（FS）</h3>
+            <h3>1. 傅里叶级数（FS）</h3>
             <div class="formula">
-                \[x(t)=\sum_{n=-\infty}^{\infty}F_n e^{jn\omega_0 t},\quad \omega_0=\frac{2\pi}{T}\]
-                \[F_n=\frac{1}{T}\int_{-T/2}^{T/2}x(t)e^{-jn\omega_0 t}dt\]
+                \[x(t)=\sum_{n=-\infty}^{\infty}F_n e^{jn\omega_0 t},\ \omega_0=\frac{2\pi}{T}\]
             </div>
-
-            <h3>2. 非周期信号：傅里叶变换（FT）</h3>
+            <h3>2. 傅里叶变换（FT）</h3>
             <div class="formula">
                 \[X(j\omega)=\mathcal{F}\{x(t)\}=\int_{-\infty}^{\infty}x(t)e^{-j\omega t}dt\]
-                \[x(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}X(j\omega)e^{j\omega t}d\omega\]
             </div>
-
             <h3>3. 常用FT对</h3>
             <ul>
                 <li>\(\delta(t)\leftrightarrow 1\)</li>
                 <li>\(u(t)\leftrightarrow \frac{1}{j\omega}+\pi\delta(\omega)\)</li>
-                <li>\(\text{Sa}(\omega_0 t)\leftrightarrow \frac{\pi}{\omega_0}[u(\omega+\omega_0)-u(\omega-\omega_0)]\)</li>
             </ul>
-
-            <h3>4. 傅里叶变换性质（高频考点）</h3>
-            <ul>
-                <li>时移：\(x(t-t_0)\leftrightarrow X(j\omega)e^{-j\omega t_0}\)</li>
-                <li>频移：\(x(t)e^{j\omega_0 t}\leftrightarrow X(j(\omega-\omega_0))\)</li>
-                <li>卷积定理：时域卷积 ↔ 频域相乘 \(x*h\leftrightarrow X(j\omega)H(j\omega)\)</li>
-                <li>微分：\(x'(t)\leftrightarrow j\omega X(j\omega)\)</li>
-            </ul>
-
-            <h3>5. 奈奎斯特抽样定理</h3>
-            <p>带限信号最高频率 \(f_m\)，采样率 \(f_s>2f_m\) 才可无失真恢复。</p>
+            <h3>4. 卷积定理</h3>
+            <p>时域卷积 ↔ 频域相乘：\(x*h \leftrightarrow X(j\omega)H(j\omega)\)</p>
         </div>
 
-        <!-- 四、复频域 -->
         <div id="laplace" class="card">
             <h2>四、复频域：拉普拉斯变换（LT）</h2>
             <h3>1. 定义（单边）</h3>
             <div class="formula">
-                \[X(s)=\mathcal{L}\{x(t)\}=\int_{0^-}^{\infty}x(t)e^{-st}dt,\quad s=\sigma+j\omega\]
+                \[X(s)=\mathcal{L}\{x(t)\}=\int_{0^-}^{\infty}x(t)e^{-st}dt,\ s=\sigma+j\omega\]
             </div>
-
-            <h3>2. 收敛域（ROC）</h3>
-            <p>使积分收敛的 \(s\) 区域；右边信号ROC：\(\text{Re}(s)>\sigma_0\)。</p>
-
-            <h3>3. 常用LT对</h3>
+            <h3>2. 常用LT对</h3>
             <ul>
                 <li>\(\delta(t)\leftrightarrow 1\)</li>
                 <li>\(u(t)\leftrightarrow \frac{1}{s}\)</li>
                 <li>\(e^{-at}u(t)\leftrightarrow \frac{1}{s+a}\)</li>
-                <li>\(\sin(\omega_0 t)u(t)\leftrightarrow \frac{\omega_0}{s^2+\omega_0^2}\)</li>
             </ul>
-
-            <h3>4. 系统函数 \(H(s)\)</h3>
-            <p>零状态下 \(H(s)=\frac{Y(s)}{X(s)}=\mathcal{L}\{h(t)\}\)；极点决定稳定性：全部极点在左半平面 → 稳定。</p>
+            <h3>3. 系统函数 \(H(s)\)</h3>
+            <p>\(H(s)=\frac{Y(s)}{X(s)}\)；极点全在左半平面 → 稳定。</p>
         </div>
 
-        <!-- 五、Z变换 -->
         <div id="z" class="card">
             <h2>五、离散域：Z变换（ZT）</h2>
             <h3>1. 定义（双边）</h3>
             <div class="formula">
                 \[X(z)=\mathcal{Z}\{x[n]\}=\sum_{n=-\infty}^{\infty}x[n]z^{-n}\]
             </div>
-
             <h3>2. 常用ZT对</h3>
             <ul>
                 <li>\(\delta[n]\leftrightarrow 1\)</li>
                 <li>\(u[n]\leftrightarrow \frac{z}{z-1},|z|>1\)</li>
-                <li>\(a^n u[n]\leftrightarrow \frac{z}{z-a},|z|>|a|\)</li>
             </ul>
-
             <h3>3. 系统函数 \(H(z)\)</h3>
-            <p>离散LTI：\(H(z)=\frac{Y(z)}{X(z)}\)；极点在单位圆内 → 稳定。</p>
+            <p>极点在单位圆内 → 稳定。</p>
         </div>
 
-        <!-- 六、状态空间 -->
         <div id="state" class="card">
-            <h2>六、高级：状态变量分析</h2>
-            <h3>1. 连续时间状态方程</h3>
+            <h2>六、状态变量分析</h2>
+            <h3>1. 连续状态方程</h3>
             <div class="formula">
                 \[\begin{cases}\dot{\boldsymbol{x}}(t)=\boldsymbol{A}\boldsymbol{x}(t)+\boldsymbol{B}\boldsymbol{f}(t)\\\boldsymbol{y}(t)=\boldsymbol{C}\boldsymbol{x}(t)+\boldsymbol{D}\boldsymbol{f}(t)\end{cases}\]
             </div>
-
-            <h3>2. 离散时间状态方程</h3>
-            <div class="formula">
-                \[\begin{cases}\boldsymbol{x}[n+1]=\boldsymbol{A}\boldsymbol{x}[n]+\boldsymbol{B}\boldsymbol{f}[n]\\\boldsymbol{y}[n]=\boldsymbol{C}\boldsymbol{x}[n]+\boldsymbol{D}\boldsymbol{f}[n]\end{cases}\]
-            </div>
-
-            <h3>3. 可控性与可观性</h3>
+            <h3>2. 可控性与可观性</h3>
             <ul>
-                <li>可控：可从任意状态在有限时间驱至零状态（由A、B决定）</li>
-                <li>可观：可由输出唯一确定初始状态（由A、C决定）</li>
+                <li>可控：可驱至零状态</li>
+                <li>可观：可由输出确定初始状态</li>
             </ul>
         </div>
 
-        <!-- 七、应用 -->
         <div id="app" class="card">
-            <h2>七、工程应用（高级感拉满）</h2>
+            <h2>七、工程应用</h2>
             <ul>
-                <li>滤波器设计：低通/高通/带通/带阻，理想低通的物理不可实现性</li>
-                <li>通信：调制解调、无失真传输、希尔伯特变换</li>
-                <li>控制：系统稳定性、极点配置、状态反馈</li>
+                <li>滤波器设计：低通/高通/带通/带阻</li>
+                <li>通信：调制解调、无失真传输</li>
+                <li>控制：稳定性、极点配置、状态反馈</li>
                 <li>信号处理：图像滤波、音频降噪、频谱分析</li>
             </ul>
         </div>
@@ -264,14 +222,12 @@
     <a href="#" class="back-to-top">↑</a>
 
     <script>
-        // 平滑滚动
         document.querySelectorAll('nav a').forEach(a=>{
             a.addEventListener('click',e=>{
                 e.preventDefault();
                 document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
             });
         });
-        // 返回顶部
         document.querySelector('.back-to-top').addEventListener('click',e=>{
             e.preventDefault();
             window.scrollTo({top:0,behavior:'smooth'});
